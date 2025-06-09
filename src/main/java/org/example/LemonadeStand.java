@@ -66,8 +66,33 @@ public class LemonadeStand {
     // Create an overloaded method for sellLemonade that takes three arguments: lemons, sugar, and ice.
     // This method should create a new Lemonade object with the given arguments and then attempt to make the lemonade.
     // If the lemonade is successfully made, the method should add the sale amount to the money field and return true.
-    //
+    public boolean sellLemonade(int lemons, int sugar, int ice) {
+            Lemonade lemonade = new Lemonade(lemons, sugar, ice);
+
+            if (tryMakingLemonade(lemonade) != null) {
+                money += calculateSale(lemonade);
+                return true;
+            } else {
+                return false;
+            }
+        }
     // HINT: You can copy and paste the body of the sellLemonade method and should only need to modify the first line.
+
+    /* Additional challenge, try adding yet another overloaded version of the sellLemonade method that creates a default Lemonade object
+and sells it as the normal one does, but inlcudes a parameter specifying a percentage discount to apply to the price of the lemonade. */
+
+    public boolean sellLemonade(int discountPercent) {
+        Lemonade lemonade = new Lemonade();
+
+        if (tryMakingLemonade(lemonade) != null) {
+            double fullPrice = calculateSale(lemonade);
+            double discountedPrice= fullPrice*(1-discountPercent/100.0);
+            money += discountedPrice;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     private Lemonade tryMakingLemonade(Lemonade lemonade) {
         if (sugar >= lemonade.getSugar() && ice >= lemonade.getIce() && lemons >= lemonade.getLemons()) {
